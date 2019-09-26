@@ -148,7 +148,7 @@ bbox_threshold = 0.8
 visualise = True
 
 if(len(os.listdir(img_path)) == 0) :
-nofor idx, img_name in enumerate(sorted(os.listdir(img_path))):
+ # for idx, img_name in enumerate(sorted(os.listdir(img_path))):
   
 	#if not img_name.lower().endswith(('.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff')):
 		#continue
