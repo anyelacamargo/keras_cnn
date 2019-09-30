@@ -1,0 +1,295 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
+% This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.                                                 %
+%                                                                                                                                                         %
+% When submitting your files, remember to upload this *tex file, the pdf generated with it, the *bib file (if bibliography is not within the *tex) and all the figures.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Version 3.1 Generated 2015/22/05 %%%
+%%% You will need to have the following packages installed: datetime, fmtcount, etoolbox, fcprefix, which are normally inlcuded in WinEdt. %%%
+%%% In http://www.ctan.org/ you can find the packages and how to install them, if necessary. %%%
+
+\documentclass{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
+%\documentclass{frontiersHLTH} % for Health articles
+%\documentclass{frontiersFPHY} % for Physics and Applied Mathematics and Statistics articles
+
+%\setcitestyle{square}
+\usepackage{url,hyperref,lineno,microtype}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{subcaption}
+
+\linenumbers
+
+
+% Leave a blank line between paragraphs instead of using \\
+
+
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+\def\firstAuthorLast{Nichola and Anyela {et~al.}} %use et al only if is more than 1 author
+\def\Authors{Nicholas Taylor\,$^{1}$, Anyela V Camargo\,$^{{2,*}}$}
+% Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
+% If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
+\def\Address{$^{1}$\\
+
+$^{1}$ NIAB, Huntingdon Road, Cambridge CB3 0LE UK\\ 
+$^{2}$ University of Cambridge, UK}
+% The Corresponding Author should be marked with an asterisk
+% Provide the exact contact address (this time including street name and city zip code) and email of the corresponding author
+\def\corrAuthor{x}
+\def\corrAddress{x}
+\def\corrEmail{avc1@aber.ac.uk}
+
+\newcommand{\todo}[1]{
+  \rule{0pt}{0pt}\marginpar{{\color{blue}\rule{1ex}{1ex}}}
+  {[\textbf{\color{blue}todo:} #1]}}
+
+
+\begin{document}
+\onecolumn
+\firstpage{1}
+
+\title[A machine learning pipeline for plant disease identification]{A machine learning pipeline for plant disease identification}
+
+\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
+\address{} %This field will be automatically populated
+\correspondance{} %This field will be automatically populated
+
+\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
+%\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
+
+
+\maketitle
+
+
+\begin{abstract}
+
+\tiny
+ \keyFont{ \section{Keywords:} computer vision; plant diseases; machine learning; ontologies } %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
+\end{abstract}
+
+\section{Introduction}
+
+The future of global agriculture and its impact on food security is one of the most urgent issues in today’s world. Farmers must prepare for changes in the climate that is likely to feature more erratic weather patterns that will necessarily have an effect in the emergence and re-emergence of plant diseases. Early and accurate diagnosis systems on local, regional, and global scales are necessary to predict pest and disease outbreaks and allow valuable time to formulate and develop mitigation strategies. Forecasting the appearance and development of a disease is difficult, as many environmental and other factors influence the complex interactions between pathogen, host, and vector.
+ 
+Fortunately, Internet access and mobile phone technologies have much improved during the last few years and are becoming increasingly accessible. This provides a new opportunity to communicate crop pathology information more widely. Containing the spread of plant diseases in a profoundly interconnected world requires active vigilance for signs of an outbreak, rapid recognition of its presence, and diagnosis of its cause, in addition to strategies and resources for an appropriate and efficient response. Due to the rapid spread of plant diseases across the world, disease surveillance and monitoring systems based on multi-country, multi-institution partnerships are necessary to predict pest and disease outbreaks and allowing a valuable time to formulate and develop mitigation strategies. 
+
+Early detection is essential for the control of emerging, re-emerging, and novel infectious diseases, whether naturally occurring or manually introduced as a result of human mobility. Containing the spread of such diseases in a profoundly interconnected world requires active vigilance for signs of an outbreak, rapid recognition of its presence, and diagnosis of its cause, in addition to strategies and resources for an appropriate and efficient response. Considerable time often elapses between the introduction of an agricultural pathogen and its detection. Given sufficient warning prior to the introduction of a new plant disease threat, researchers can reduce the impact of disease by identifying chemical control measures or by breeding resistant crop varieties [11].  
+
+\section{Material \& Methods}
+
+\subsection{Images}
+Images  were  sourced from  the  PlantVillage  dataset \cite{hughes2015open}. 
+
+\subsection{Lession identification}
+
+Faster CNN
+
+\subsection{Disease identification}
+
+SVM
+
+
+\subsection{Ontology}
+%\todo{}
+The Plant Protection Ontology (PPOntology) was developed by the International Center for Agricultural Research in the Dry Areas (ICARDA). This project aimed to model the knowledge of agricultural experts in diagnosing barley diseases as an initial stage to building a system for automatic detection of barley disorders. As a result, PPOntology establishes a vocabulary to describe symptoms, environmental conditions and agricultural practices, which are the main factors taken into account when experts carry out their diagnosis.
+
+The ontology was developed by reviewing various relevant systems, agricultural manuals, and through interviewing agricultural experts in ICARDA. The researcher reviewed existing attempts to implement systems for detecting plant disorders, including the Regional Wheat Expert System, the tomato expert system developed by Al-Shamaa \cite{}, and the Knowledge Acquisition Tool (KAT) \cite{boose1990knowledge} developed at ICARDA and
+CLAES \cite{el2002expert}. This helped establish an initial understanding of the vocabulary and categories used to describe and model factors related to plant disorders, and to conceptualize the problem domain as consisting of three main concept categories: disorders, symptom groups, and control plans.
+
+After reviewing the use of Intelligent Systems for Plant Protection project (ISPP) developed by several organizations, in addition to the Barley Disease Handbook \cite{neate2010barley}, PPOntology was refined to account for various types of disorders (e.g. biotic, including micropests like fungi or viruses; or abiotic, including mineral deficiencies or environmental stresses). Another main concept category was added as well to account for environmental conditions. The researcher validated the resulting knowledge model with two experts in entomology and plant pathology in ICARDA. This brought up the importance for accounting for the growth sage of the plant, which strongly influences the development of symptoms of a certain pathogen. Subsequently, the ontology was updated to split cases (a renaming of the previous category of "sympom groups") into various growth stages. With this scheme, the same disorder (or pathogen) can be linked to various cases belonging to different growth stages. Another concept category named "observations" was added to group all possible observable symptoms, and this was split to various categories to correspond to observations on different plant parts.
+
+The final refinement included further nuances in concept categories to account for plant attributes (e.g. leaf color), growth stages, and to link them with observations. This was done through building a partial knowledge base with the ontology. The researcher filled-in most barley disorders common in Syria, including fungal, bacterial, viral, and insect disorders along with phytotoxicities and mineral deficiencies \todo{Appendix A}. He also entered information about biological organisms and materials causing disorders for barley plants. This was accumulated based on \cite{berkey1992storytelling}, \cite{neate2010barley}, \todo{CANNOT FIND: UISPP 2006}, as well as \todo{CANNOT FIND: Yahyaoui et al 2003}  for verification and validation.
+
+\subsubsection{Ontology structure}
+Here we summarize the structure of basic concepts in PPOntology. In the following list, a concept that is nested under another concept represent a subclass of that higher class concept.
+
+\begin{itemize}
+\item Organism: represents the base class of all classes and instances of biological organisms that
+are related to barley disorders.
+	\begin{itemize}
+	\item Animal: represents the base class for all classes and instances of animals (e.g. Rat).
+	\item Microorganism: represents the base class for all classes and instances of microorganisms (e.g. Cochliobolus Sativus).
+	\end{itemize}
+\item Material: represents the base class of all classes and instances of materials that are related to
+barley disorders.
+	\begin{itemize}
+	\item Mineral: represents the class of nutrient minerals of the barley plant (e.g. Nitrogen).
+	\item Pesticide: represents the class of pesticides used for the control of barley disorders (e.g. Dicamba).
+	\end{itemize}
+\item Disorder: represents the base class of all classes and instances of barley disorders (e.g.
+barley stripe). Every Disorder instance is linked to a set of Organism or Material instances
+that are considered the agents of the corresponding disorder. Also, each Disorder instance is
+also linked to a set of Case instances that represents a group of possible manifestations.
+	\begin{itemize}
+	\item Abiotic Disorder: represents the base class for all classes and instances of barley disorders caused due to non-biotic reasons (e.g. Boron Phytotoxicity).
+	\item Biotic Disorder: represents the base class for all classes and instances of barley disorders caused by biotic pathogens (e.g. Powdery Mildew).
+	\end{itemize}
+\item Plant Attribute: represents the base class of all classes and instances of possible attributes of
+plant parts (e.g. Leaf Color).
+\item Growth Stage: represents the class of different growth stages of the barley plant (e.g.
+Heading).
+\item Observation: represents the observations of different plant parts, where an Observation
+instance links between a set of Plant Attribute instances and a set of Growth Stage instances
+to mark the stage of growth at which these attributes were observed.
+\item Environmental Conditions: represents the base class of environmental conditions
+surrounding barley plants.
+\item Control Plan: represents groups of control measures and directions associated for the
+treatment of specific cases of disorders.
+\item Case: represents the class of barley disorder cases, which are associated to their causing
+disorders. Each Case instance is associated with a set of Observation instances that
+represents a group of consistent observations which can be made in the course of
+corresponding disorder, a set of Environmental Condition instances, and a Control Plan
+instance.
+\end{itemize}
+
+
+\subsection{Plant infection and phenotyping}
+
+
+\subsection{Automatic annotation}
+
+\section{Results}
+
+
+
+
+
+%\begin{table}[!t]
+%\textbf{\refstepcounter{table}\label{Tab:02} Table \arabic{table}.}{ Infection type score table}\\
+%\processtable{}
+%{\begin{tabular}{l|l}
+%\hline
+%	score & description \\\midrule
+%	0 & No visible symptoms \\
+%	1  & Small, sporulating uredia surrounded by necrotic tissue \\
+%	2 & Small, sporulating uredia surrounded by necrotic tissue \\
+%	3 & Medium sized, sporulating uredia surrounded only by chlorotic tissue \\
+%	4 & Large, sporulating uredia surrounded by green tissue \\ \hline
+%\end{tabular}}{}
+%\end{table}
+
+
+
+\section{Discussion}
+
+
+\section*{Disclosure/Conflict-of-Interest Statement}
+
+
+The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+\section*{Author Contributions}
+
+
+
+\section*{Acknowledgments}
+
+\textit{Funding\textcolon} for finantially suportting the project.
+
+
+
+\bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
+%\bibliographystyle{frontiersinHLTH&FPHY} % for Health and Physics articles
+\bibliography{bioinfo}
+
+%%% Upload the *bib file along with the *tex file and PDF on submission if the bibliography is not in the main *tex file
+
+\section*{Figures}
+
+%%% Use this if adding the figures directly in the mansucript, if so, please remember to also upload the files when submitting your article
+%%% There is no need for adding the file termination, as long as you indicate where the file is saved. In the examples below the files (logo1.jpg and logo2.eps) are in the Frontiers LaTeX folder
+%%% If using *.tif files convert them to .jpg or .png
+
+%\begin{figure}
+%    \begin{center}
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{smarthouse.jpg}
+%        \caption{Plant watering at gravimetrix level}
+%       % \label{fig:tiger}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{scoring.jpg}
+%        \caption{Plant scoring for developmental stages}
+%        %\label{fig:mouse}
+%    \end{subfigure}
+%\end{center}
+%    \caption{Contrast beween two lines whose disease score was four. Red vertical line indicates the date senescence on Flag leaf was first seen}\label{fig3}
+%%\textbf{\refstepcounter{figure}\label{fig:03} Figure \arabic{figure}.}{Contrast beween two lines whose disease score was four. Red vertical line indicates the date senescence on Flag leaf was first seen}
+%\end{figure}
+%
+%
+\
+
+%
+%\begin{figure}[h!]
+%\begin{center}
+%\includegraphics[width=10cm]{flagleafsenescence.png}
+%\end{center}
+% \caption{Disease severity vs onset of senescence at the Flag Leaf. Red dots indicate average DAS per disease score}\label{fig2}
+%\end{figure}
+%
+%
+%\begin{figure}
+%    \begin{center}
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{W8-214112.png}
+%        \caption{Early senescence, IT = 4}
+%       % \label{fig:tiger}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{W8-100112.png}
+%        \caption{Late senescence, IT = 4}
+%        %\label{fig:mouse}
+%    \end{subfigure}
+%\end{center}
+%    \caption{Contrast beween two lines whose disease score was four. Red vertical line indicates the date senescence on Flag leaf was first seen}\label{fig3}
+%%\textbf{\refstepcounter{figure}\label{fig:03} Figure \arabic{figure}.}{Contrast beween two lines whose disease score was four. Red vertical line indicates the date senescence on Flag leaf was first seen}
+%\end{figure}
+%
+%
+%\begin{figure}
+%    \begin{center}
+%    \begin{subfigure}[b]{1\textwidth}
+%        \includegraphics[width=\textwidth]{gs39_qtl.png}
+%        \caption{}
+%        \label{fig:gs39}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%\begin{subfigure}[b]{1\textwidth}
+%        \includegraphics[width=\textwidth]{firstearweight_qtl.png}
+%        \caption{}
+%       \label{fig:firstearweight}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{1\textwidth}
+%        \includegraphics[width=\textwidth]{thirdearlength_qtl.png}
+%        \caption{}
+%        \label{fig:thirdearlength}
+%    \end{subfigure}
+%\end{center}
+%    \caption{QTLs hits for the taits gs39, first.ear.weightt and third.ear.length}\label{fig4}
+%%\textbf{\refstepcounter{figure}\label{fig:03} Figure \arabic{figure}.}{Contrast beween two lines whose disease score was four. Red vertical line indicates the date senescence on Flag leaf was first seen}
+
+
+%\end{figure}
+
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=10cm]{logo2}% This is an *.eps file
+%\end{center}
+%\textbf{\refstepcounter{figure}\label{fig:02} Figure \arabic{figure}.}{ Enter the caption for your figure here.  Repeat as  necessary for each of your figures }
+%\end{figure}
+
+%%% If you don't add the figures in the LaTeX files, please upload them when submitting the article.
+
+%%% Frontiers will add the figures at the end of the provisional pdf automatically %%%
+
+%%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
+\end{document}
