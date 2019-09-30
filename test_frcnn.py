@@ -12,40 +12,6 @@ from keras.layers import Input
 from keras.models import Model
 from keras_frcnn import roi_helpers
 
-sys.setrecursionlimit(40000)
-
-parser = OptionParser()
-
-parser.add_option("-p", "--path", dest="test_path", help="Path to test data.")
-parser.add_option("-n", "--num_rois", type="int", dest="num_rois",
-				help="Number of ROIs per iteration. Higher means more memory use.", default=32)
-parser.add_option("--config_filename", dest="config_filename", help=
-				"Location to read the metadata related to the training (generated when training).",
-				default="config.pickle")
-parser.add_option("--network", dest="network", help="Base network to use. Supports vgg or resnet50.", default='resnet50')
-
-(options, args) = parser.parse_args()
-
-if not options.test_path:   # if filename is not given
-	parser.error('Error: path to test data must be specified. Pass --path to command line')
-
-
-config_output_filename = options.config_filename
-
-with open(config_output_filename, 'rb') as f_in:
-	C = pickle.load(f_in)
-
-if C.network == 'resnet50':
-	import keras_frcnn.resnet as nn
-elif C.network == 'vgg':
-	import keras_frcnn.vgg as nn
-
-# turn off any data augmentation at test time
-C.use_horizontal_flips = False
-C.use_vertical_flips = False
-C.rot_90 = False
-
-img_path = options.test_path
 
 def format_img_size(img, C):
 	""" formats the image size based on config """
@@ -91,6 +57,43 @@ def get_real_coordinates(ratio, x1, y1, x2, y2):
 
 	return (real_x1, real_y1, real_x2 ,real_y2)
 
+
+sys.setrecursionlimit(40000)
+
+parser = OptionParser()
+
+parser.add_option("-p", "--path", dest="test_path", help="Path to test data.")
+parser.add_option("-n", "--num_rois", type="int", dest="num_rois",
+				help="Number of ROIs per iteration. Higher means more memory use.", default=32)
+parser.add_option("--config_filename", dest="config_filename", help=
+				"Location to read the metadata related to the training (generated when training).",
+				default="config.pickle")
+parser.add_option("--network", dest="network", help="Base network to use. Supports vgg or resnet50.", default='resnet50')
+
+(options, args) = parser.parse_args()
+
+if not options.test_path:   # if filename is not given
+	parser.error('Error: path to test data must be specified. Pass --path to command line')
+
+
+config_output_filename = options.config_filename
+
+with open(config_output_filename, 'rb') as f_in:
+	C = pickle.load(f_in)
+
+if C.network == 'resnet50':
+	import keras_frcnn.resnet as nn
+elif C.network == 'vgg':
+	import keras_frcnn.vgg as nn
+
+# turn off any data augmentation at test time
+C.use_horizontal_flips = False
+C.use_vertical_flips = False
+C.rot_90 = False
+
+img_path = options.test_path
+
+
 class_mapping = C.class_mapping
 
 if 'bg' not in class_mapping:
@@ -125,7 +128,8 @@ shared_layers = nn.nn_base(img_input, trainable=True)
 num_anchors = len(C.anchor_box_scales) * len(C.anchor_box_ratios)
 rpn_layers = nn.rpn(shared_layers, num_anchors)
 
-classifier = nn.classifier(feature_map_input, roi_input, C.num_rois, nb_classes=len(class_mapping), trainable=True)
+classifier = nn.classifier(feature_map_input, roi_input, C.num_rois, 
+nb_classes= len(class_mapping), trainable=True)
 
 model_rpn = Model(img_input, rpn_layers)
 model_classifier_only = Model([feature_map_input, roi_input], classifier)
@@ -196,7 +200,8 @@ if(len(os.listdir(img_path)) == 0) :
 
 		for ii in range(P_cls.shape[1]):
 
-			if np.max(P_cls[0, ii, :]) < bbox_threshold or np.argmax(P_cls[0, ii, :]) == (P_cls.shape[2] - 1):
+			if np.max(P_cls[0, ii, :]) < bbox_threshold or \
+			np.argmax(P_cls[0, ii, :]) == (P_cls.shape[2] - 1):
 				continue
 
 			cls_name = class_mapping[np.argmax(P_cls[0, ii, :])]
@@ -217,24 +222,27 @@ if(len(os.listdir(img_path)) == 0) :
 				x, y, w, h = roi_helpers.apply_regr(x, y, w, h, tx, ty, tw, th)
 			except:
 				pass
-			bboxes[cls_name].append([C.rpn_stride*x, C.rpn_stride*y, C.rpn_stride*(x+w), C.rpn_stride*(y+h)])
+			bboxes[cls_name].append([C.rpn_stride * x, C.rpn_stride * y, 
+			C.rpn_stride * (x+w), C.rpn_stride * (y+h)])
 			probs[cls_name].append(np.max(P_cls[0, ii, :]))
 
 	all_dets = []
 	
-
-    
   
 	for key in bboxes:
 		bbox = np.array(bboxes[key])
 
-		new_boxes, new_probs = roi_helpers.non_max_suppression_fast(bbox, np.array(probs[key]), overlap_thresh=0.5)
+		new_boxes, new_probs = \
+		roi_helpers.non_max_suppression_fast(bbox, np.array(probs[key]), 
+		overlap_thresh=0.5)
 		for jk in range(new_boxes.shape[0]):
 			(x1, y1, x2, y2) = new_boxes[jk,:]
 
 			(real_x1, real_y1, real_x2, real_y2) = get_real_coordinates(ratio, x1, y1, x2, y2)
 
-			cv2.rectangle(img,(real_x1, real_y1), (real_x2, real_y2), (int(class_to_color[key][0]), int(class_to_color[key][1]), int(class_to_color[key][2])),2)
+			cv2.rectangle(img,(real_x1, real_y1), (real_x2, real_y2), 
+			(int(class_to_color[key][0]), int(class_to_color[key][1]), 
+			int(class_to_color[key][2])),2)
 
 			textLabel = '{}: {}'.format(key,int(100*new_probs[jk]))
 			all_dets.append((key,100*new_probs[jk]))
@@ -242,8 +250,12 @@ if(len(os.listdir(img_path)) == 0) :
 			(retval,baseLine) = cv2.getTextSize(textLabel,cv2.FONT_HERSHEY_COMPLEX,1,1)
 			textOrg = (real_x1, real_y1-0)
 
-			cv2.rectangle(img, (textOrg[0] - 5, textOrg[1]+baseLine - 5), (textOrg[0]+retval[0] + 5, textOrg[1]-retval[1] - 5), (0, 0, 0), 2)
-			cv2.rectangle(img, (textOrg[0] - 5,textOrg[1]+baseLine - 5), (textOrg[0]+retval[0] + 5, textOrg[1]-retval[1] - 5), (255, 255, 255), -1)
+			cv2.rectangle(img, (textOrg[0] - 5, textOrg[1]+baseLine - 5), 
+			(textOrg[0]+retval[0] + 5, textOrg[1]-retval[1] - 5), (0, 0, 0), 2)
+			
+			cv2.rectangle(img, (textOrg[0] - 5,textOrg[1]+baseLine - 5), 
+			(textOrg[0]+retval[0] + 5, textOrg[1]-retval[1] - 5), (255, 255, 255), -1)
+			
 			cv2.putText(img, textLabel, textOrg, cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 0), 1)
 
 	
