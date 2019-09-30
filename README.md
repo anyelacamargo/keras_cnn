@@ -44,4 +44,4 @@ ISSUES:
 
 
 - This repo was developed using `python3`, Anaconda.
-
+- conda activate tf-avcr
