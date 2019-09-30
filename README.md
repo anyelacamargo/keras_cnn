@@ -38,15 +38,10 @@ paper. The anchor box sizes are [128, 256, 512] and the ratios are [1:1, 1:2, 2:
 - The tensorflow backend performs a resize on the pooling region, instead of max pooling. This is much more efficient and has little impact on results.
 
 
-Example output:
 
 
 ISSUES:
 
-- If you get this error:
-`ValueError: There is a negative shape in the graph!`    
-    than update keras to the newest version
 
-- This repo was developed using `python2`. `python3` should work thanks to the contribution of a number of users.
+- This repo was developed using `python3`, Anaconda.
 
-- If you run out of memory, try reducing the number of ROIs that are processed simultaneously. Try passing a lower `-n` to `train_frcnn.py`. Alternatively, try reducing the image size from the default value of 600 (this setting is found in `config.py`.
